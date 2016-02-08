@@ -16,11 +16,12 @@ public class Savings extends Account {
 	 * A deposit comes with a fee of 50 cents per deposit
 	 */
 	public boolean deposit(float amount) {
-		if (getState() != State.CLOSED && amount > 0.0f) {
+		if (getState() != State.CLOSED) {
 			balance = balance + amount - 0.50F;
 			if (balance >= 0.0f) {
 				setState(State.OPEN);
 			}
+			return true;
 		}
 		return false;
 	}
@@ -36,7 +37,7 @@ public class Savings extends Account {
 			if (numWithdraws > 3)
 				balance = balance - 1.0f;
 			// KG BVA: should be < 0
-			if (balance <= 0.0f) {
+			if (balance < 0.0f) {
 				setState(State.OVERDRAWN);
 			}
 			return true;
@@ -44,7 +45,9 @@ public class Savings extends Account {
 		return false;
 	}
 	
-	public String getType() { return "Checking"; }
+	public String getType() { 
+		return "Savings"; 
+		}
 
 	public String toString() {
 		return "Savings: " + getName() + ": " + getBalance();
