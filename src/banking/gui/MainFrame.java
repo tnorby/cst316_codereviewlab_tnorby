@@ -133,10 +133,14 @@ class MainFrame extends JFrame {
 			String name = nameField.getText();
 			String balance = balanceField.getText();
 
-			if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
-				JOptionPane.showMessageDialog(null, "Account created successfully");
-			} else {
-				JOptionPane.showMessageDialog(null, "Account not created!");
+			try{
+				if (myServer.newAccount(type, name, Float.parseFloat(balance))) {
+					JOptionPane.showMessageDialog(null, "Account created successfully");
+				} else {
+					JOptionPane.showMessageDialog(null, "Account not created!");
+				}
+			} catch (NumberFormatException ex) {
+				JOptionPane.showMessageDialog(null, "Amount isn't a number");
 			}
 		}
 	}
